@@ -1,2 +1,2 @@
 # scamdb-api
-API-Libraries for different languages to interact with Scam-DB
+API-Library to interact with Scam-DB
