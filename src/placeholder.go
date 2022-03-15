@@ -1,7 +1,7 @@
-package main
+package scamdb
 
 import "fmt"
 
-func main() {
+func Test() {
 	fmt.Println("Joe Mama Biden")
 }
