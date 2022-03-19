@@ -2,7 +2,7 @@ package local
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/Peri-Loves-Violence/scamdb-api"
@@ -30,7 +30,10 @@ func ListUsers(service string, db scamdb.ServerEntry) ([]string, error) {
 
 // Returns the user object for given database with service and entry id/name
 func ReadUser(username string, service string, db scamdb.ServerEntry) (scamdb.UserEntry, error) {
-	userFile, err := ioutil.ReadFile(filepath.Join(db.URL, service, username))
+	userFile, err := os.ReadFile(filepath.Join(db.URL, service, username))
+	if err != nil {
+		return scamdb.UserEntry{}, err
+	}
 	var user scamdb.UserEntry
 	err = json.Unmarshal(userFile, &user)
 	return user, err
