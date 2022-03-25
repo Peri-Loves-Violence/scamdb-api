@@ -1,6 +1,5 @@
-package scamdb
+package types
 
-// Database
 type ServerEntry struct {
 	ServerName string       `json:"name"`
 	URL        string       `json:"url"`
@@ -17,11 +16,3 @@ const (
 	RedisDB  DatabaseType = "redis"
 	LocalDB  DatabaseType = "local"
 )
-
-// User entries
-type UserEntry struct {
-	Username string `json:"username"`
-	ID       string `json:"id"`
-	Profile  string `json:"profile"`
-	Reason   string `json:"reason"`
-}

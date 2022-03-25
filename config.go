@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
+
+	"github.com/Peri-Loves-Violence/scamdb-api/types"
 )
 
-func ReadServers(filename string) ([]ServerEntry, error) {
-	var servers []ServerEntry
+func ReadServers(filename string) ([]types.ServerEntry, error) {
+	var servers []types.ServerEntry
 	file, err := os.Open(filename)
 	byteValue, _ := ioutil.ReadAll(file)
 	defer file.Close()
