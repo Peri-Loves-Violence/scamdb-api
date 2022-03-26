@@ -7,6 +7,7 @@ import (
 	"github.com/Peri-Loves-Violence/scamdb-api/local"
 	"github.com/Peri-Loves-Violence/scamdb-api/mongodb"
 	"github.com/Peri-Loves-Violence/scamdb-api/mysql"
+	"github.com/Peri-Loves-Violence/scamdb-api/postgresql"
 	"github.com/Peri-Loves-Violence/scamdb-api/redis"
 	"github.com/Peri-Loves-Violence/scamdb-api/sqlite"
 )
@@ -117,6 +118,24 @@ func ScamDB(name string, typ types.DatabaseType, url string, user string, token 
 			},
 			WriteUser: func(user types.UserEntry, serv string) error {
 				return local.WriteUser(user, serv, entry)
+			},
+			Entry: entry,
+		}
+
+	case types.PostgresDB:
+		entry := postgresql.Entry(name, url, user, token)
+		return types.Database{
+			Services: func() ([]string, error) {
+				return postgresql.ListServices(entry)
+			},
+			Users: func(serv string) ([]string, error) {
+				return postgresql.ListUsers(serv, entry)
+			},
+			ReadUser: func(user string, serv string) (types.UserEntry, error) {
+				return postgresql.ReadUser(user, serv, entry)
+			},
+			WriteUser: func(user types.UserEntry, serv string) error {
+				return postgresql.WriteUser(user, serv, entry)
 			},
 			Entry: entry,
 		}

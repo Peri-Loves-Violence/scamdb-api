@@ -1,4 +1,4 @@
-package sqlite
+package postgresql
 
 import (
 	"github.com/Peri-Loves-Violence/scamdb-api/sql"
@@ -6,5 +6,5 @@ import (
 )
 
 func WriteUser(user types.UserEntry, serv string, db types.ServerEntry) error {
-	return sql.SQLWrite(sql.SQLite, db.URL, user, serv)
+	return sql.SQLWrite(sql.Postgres, db.URL, user, serv)
 }
