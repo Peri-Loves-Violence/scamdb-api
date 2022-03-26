@@ -32,7 +32,7 @@ func ScamDB(name string, typ types.DatabaseType, url string, user string, token 
 		}
 
 	case types.SQLiteDB:
-		entry := sqlite.Entry(name, url, user, token)
+		entry := sqlite.Entry(name, url)
 		return types.Database{
 			Services: func() ([]string, error) {
 				return sqlite.ListServices(entry)

@@ -17,7 +17,7 @@ func ReadServers(filename string) ([]types.ServerEntry, error) {
 	return servers, err
 }
 
-func WriteServers(data *interface{}, filename string) error {
-	dataBytes, _ := json.Marshal(*data)
+func WriteServers(data []types.ServerEntry, filename string) error {
+	dataBytes, _ := json.Marshal(data)
 	return ioutil.WriteFile(filename, dataBytes, 0644)
 }
