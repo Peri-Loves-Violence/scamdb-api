@@ -1,16 +1,19 @@
 package scamdb
 
 import (
+	"github.com/Peri-Loves-Violence/scamdb-api/types"
+
 	"github.com/Peri-Loves-Violence/scamdb-api/github"
 	"github.com/Peri-Loves-Violence/scamdb-api/local"
+	"github.com/Peri-Loves-Violence/scamdb-api/mongodb"
 	"github.com/Peri-Loves-Violence/scamdb-api/mysql"
 	"github.com/Peri-Loves-Violence/scamdb-api/redis"
-	"github.com/Peri-Loves-Violence/scamdb-api/types"
+	"github.com/Peri-Loves-Violence/scamdb-api/sqlite"
 )
 
-func NewDatabase(name string, typ types.DatabaseType, url string, user string, token string) types.Database {
+func ScamDB(name string, typ types.DatabaseType, url string, user string, token string) types.Database {
 	switch typ {
-	case "github":
+	case types.GithubDB:
 		entry := github.Entry(name, url, user, token)
 		return types.Database{
 			Services: func() ([]string, error) {
@@ -28,7 +31,25 @@ func NewDatabase(name string, typ types.DatabaseType, url string, user string, t
 			Entry: entry,
 		}
 
-	case "mysql":
+	case types.SQLiteDB:
+		entry := sqlite.Entry(name, url, user, token)
+		return types.Database{
+			Services: func() ([]string, error) {
+				return sqlite.ListServices(entry)
+			},
+			Users: func(serv string) ([]string, error) {
+				return sqlite.ListUsers(serv, entry)
+			},
+			ReadUser: func(user string, serv string) (types.UserEntry, error) {
+				return sqlite.ReadUser(user, serv, entry)
+			},
+			WriteUser: func(user types.UserEntry, serv string) error {
+				return sqlite.WriteUser(user, serv, entry)
+			},
+			Entry: entry,
+		}
+
+	case types.MySQLDB:
 		entry := mysql.Entry(name, url, user, token)
 		return types.Database{
 			Services: func() ([]string, error) {
@@ -46,7 +67,25 @@ func NewDatabase(name string, typ types.DatabaseType, url string, user string, t
 			Entry: entry,
 		}
 
-	case "redis":
+	case types.MongoDB:
+		entry := mongodb.Entry(name, url, user, token)
+		return types.Database{
+			Services: func() ([]string, error) {
+				return mongodb.ListServices(entry)
+			},
+			Users: func(serv string) ([]string, error) {
+				return mongodb.ListUsers(serv, entry)
+			},
+			ReadUser: func(user string, serv string) (types.UserEntry, error) {
+				return mongodb.ReadUser(user, serv, entry)
+			},
+			WriteUser: func(user types.UserEntry, serv string) error {
+				return mongodb.WriteUser(user, serv, entry)
+			},
+			Entry: entry,
+		}
+
+	case types.RedisDB:
 		entry := redis.Entry(name, url, user, token)
 		return types.Database{
 			Services: func() ([]string, error) {
@@ -64,7 +103,7 @@ func NewDatabase(name string, typ types.DatabaseType, url string, user string, t
 			Entry: entry,
 		}
 
-	case "local":
+	case types.LocalDB:
 		entry := local.Entry(name, url)
 		return types.Database{
 			Services: func() ([]string, error) {

@@ -13,6 +13,8 @@ type DatabaseType string
 const (
 	GithubDB DatabaseType = "github"
 	MySQLDB  DatabaseType = "mysql"
+	SQLiteDB DatabaseType = "sqlite"
+	MongoDB  DatabaseType = "mongodb"
 	RedisDB  DatabaseType = "redis"
 	LocalDB  DatabaseType = "local"
 )
