@@ -12,7 +12,11 @@ import (
 	"github.com/Peri-Loves-Violence/scamdb-api/sqlite"
 )
 
-func ScamDB(name string, typ types.DatabaseType, url string, user string, token string) types.Database {
+func ScamDB(entry types.ServerEntry) types.Database {
+	return NewScamDB(entry.ServerName, entry.Type, entry.URL, entry.User, entry.Token)
+}
+
+func NewScamDB(name string, typ types.DatabaseType, url string, user string, token string) types.Database {
 	switch typ {
 	case types.GithubDB:
 		entry := github.Entry(name, url, user, token)
