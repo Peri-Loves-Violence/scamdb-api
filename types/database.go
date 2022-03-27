@@ -18,4 +18,5 @@ const (
 	MongoDB    DatabaseType = "mongodb"
 	RedisDB    DatabaseType = "redis"
 	LocalDB    DatabaseType = "local"
+	GoogleDB   DatabaseType = "google"
 )

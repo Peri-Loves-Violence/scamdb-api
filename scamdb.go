@@ -1,6 +1,7 @@
 package scamdb
 
 import (
+	"github.com/Peri-Loves-Violence/scamdb-api/google"
 	"github.com/Peri-Loves-Violence/scamdb-api/types"
 
 	"github.com/Peri-Loves-Violence/scamdb-api/github"
@@ -143,6 +144,25 @@ func NewScamDB(name string, typ types.DatabaseType, url string, user string, tok
 			},
 			Entry: entry,
 		}
+
+	case types.GoogleDB:
+		entry := google.Entry(name, url, user, token)
+		return types.Database{
+			Services: func() ([]string, error) {
+				return google.ListServices(entry)
+			},
+			Users: func(serv string) ([]string, error) {
+				return google.ListUsers(serv, entry)
+			},
+			ReadUser: func(user string, serv string) (types.UserEntry, error) {
+				return google.ReadUser(user, serv, entry)
+			},
+			WriteUser: func(user types.UserEntry, serv string) error {
+				return google.WriteUser(user, serv, entry)
+			},
+			Entry: entry,
+		}
+
 	default:
 		return types.Database{}
 	}
