@@ -5,6 +5,7 @@ import (
 	"github.com/Peri-Loves-Violence/scamdb-api/types"
 )
 
+// Return a new Server Entry for a SQLite3 database. Only name and absolute path required.
 func Entry(name string, url string) types.ServerEntry {
 	return types.ServerEntry{
 		ServerName: name,
