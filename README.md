@@ -23,7 +23,7 @@ API-Library to interact with Scam-DB
 | Redis       | :white_check_mark:  | :x:                | N/A                | :x:/:cloud:        |
 
 *: Database can handle a lot of traffic and is recommended for commercial/large use.
-All of them are fast enough and can be used for private/small use with plug-and-play.
+All of them are fast enough for private/small or moderate use with plug-and-play.
 
 # Usage
 [See the wiki for more](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/Home)
