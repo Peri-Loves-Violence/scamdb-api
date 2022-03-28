@@ -18,6 +18,9 @@ func ReadServers(filename string) ([]types.ServerEntry, error) {
 }
 
 func WriteServers(data []types.ServerEntry, filename string) error {
-	dataBytes, _ := json.Marshal(data)
+	dataBytes, err := json.Marshal(data)
+	if err != nil {
+		return err
+	}
 	return ioutil.WriteFile(filename, dataBytes, 0644)
 }
