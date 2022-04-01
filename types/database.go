@@ -15,8 +15,6 @@ const (
 	MySQLDB    DatabaseType = "mysql"
 	SQLiteDB   DatabaseType = "sqlite"
 	PostgresDB DatabaseType = "postgres"
-	MongoDB    DatabaseType = "mongodb"
-	RedisDB    DatabaseType = "redis"
 	LocalDB    DatabaseType = "local"
 	GoogleDB   DatabaseType = "google"
 )

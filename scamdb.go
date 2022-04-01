@@ -6,10 +6,8 @@ import (
 
 	"github.com/Peri-Loves-Violence/scamdb-api/github"
 	"github.com/Peri-Loves-Violence/scamdb-api/local"
-	"github.com/Peri-Loves-Violence/scamdb-api/mongodb"
 	"github.com/Peri-Loves-Violence/scamdb-api/mysql"
 	"github.com/Peri-Loves-Violence/scamdb-api/postgresql"
-	"github.com/Peri-Loves-Violence/scamdb-api/redis"
 	"github.com/Peri-Loves-Violence/scamdb-api/sqlite"
 )
 
@@ -69,42 +67,6 @@ func NewScamDB(name string, typ types.DatabaseType, url string, user string, tok
 			},
 			WriteUser: func(user types.UserEntry, serv string) error {
 				return mysql.WriteUser(user, serv, entry)
-			},
-			Entry: entry,
-		}
-
-	case types.MongoDB:
-		entry := mongodb.Entry(name, url, user, token)
-		return types.Database{
-			Services: func() ([]string, error) {
-				return mongodb.ListServices(entry)
-			},
-			Users: func(serv string) ([]string, error) {
-				return mongodb.ListUsers(serv, entry)
-			},
-			ReadUser: func(user string, serv string) (types.UserEntry, error) {
-				return mongodb.ReadUser(user, serv, entry)
-			},
-			WriteUser: func(user types.UserEntry, serv string) error {
-				return mongodb.WriteUser(user, serv, entry)
-			},
-			Entry: entry,
-		}
-
-	case types.RedisDB:
-		entry := redis.Entry(name, url, user, token)
-		return types.Database{
-			Services: func() ([]string, error) {
-				return redis.ListServices(entry)
-			},
-			Users: func(serv string) ([]string, error) {
-				return redis.ListUsers(serv, entry)
-			},
-			ReadUser: func(user string, serv string) (types.UserEntry, error) {
-				return redis.ReadUser(user, serv, entry)
-			},
-			WriteUser: func(user types.UserEntry, serv string) error {
-				return redis.WriteUser(user, serv, entry)
 			},
 			Entry: entry,
 		}
