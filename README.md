@@ -14,7 +14,7 @@ API-Library to interact with Scam-DB
 | GitHub      | :white_check_mark:  | :white_check_mark: | :white_check_mark: | :cloud:            |
 | Local       | Depending on medium | :x: (except RAID)  | :white_check_mark: | :white_check_mark: |
 | SQLite      | Depending on medium | :x: (except RAID)  | :white_check_mark: | :white_check_mark: |
-| MySQL       | :x:                 | :x:                | :white_check_mark: | :white_check_mark: |
+| MySQL       | :x:                 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | CockroachDB | :x:                 | :white_check_mark: | N/A                | :x:/:cloud:        |
 
 *: Database can handle a lot of traffic and is recommended for commercial/large use.
