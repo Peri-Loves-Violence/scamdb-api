@@ -48,7 +48,18 @@ func SQLUser(driver SQLType, url string, service string, username string) (types
 	}
 	defer scamDBsql.Close()
 
-	sqlres, err := scamDBsql.Query("SELECT username, id, profile, reason FROM users WHERE username = $1 AND service = $2", username, service)
+	response, err := scamDBsql.Query("SELECT service_id FROM services WHERE service = $1", service)
+	if err != nil {
+		return types.UserEntry{}, err
+	}
+	defer response.Close()
+	var service_id string
+	err = response.Scan(&service_id)
+	if err != nil {
+		return types.UserEntry{}, err
+	}
+
+	sqlres, err := scamDBsql.Query("SELECT username, id, profile, reason FROM users WHERE username = $1 AND service_id = $2", username, service_id)
 	if err != nil {
 		return types.UserEntry{}, err
 	}
@@ -69,7 +80,16 @@ func SQLWrite(driver SQLType, url string, user types.UserEntry, service string) 
 	}
 	defer scamDBsql.Close()
 
-	_, err = scamDBsql.Exec("INSERT INTO users (username, id, profile, reason, service) VALUES ($1, $2, $3, $4, $5)", user.Username, user.ID, user.Profile, user.Reason, service)
+	resp, err := scamDBsql.Query("SELECT service_id FROM services WHERE service = $1", service)
+	if err != nil {
+		return err
+	}
+	defer resp.Close()
+
+	var service_id string
+	resp.Scan(&service_id)
+
+	_, err = scamDBsql.Exec("INSERT INTO users (username, id, profile, reason, service_id) VALUES ($1, $2, $3, $4, $5)", user.Username, user.ID, user.Profile, user.Reason, service_id)
 
 	return err
 }

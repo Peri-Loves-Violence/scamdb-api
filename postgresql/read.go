@@ -16,11 +16,15 @@ func Entry(name string, url string, user string, token string) types.ServerEntry
 }
 
 func ListServices(db types.ServerEntry) ([]string, error) {
-	return sql.SQL(sql.Postgres, sql.PostgresURL(db.URL, db.User, db.Token), "SELECT name FROM services")
+	return sql.SQL(sql.Postgres, sql.PostgresURL(db.URL, db.User, db.Token), "SELECT service FROM services")
 }
 
 func ListUsers(service string, db types.ServerEntry) ([]string, error) {
-	return sql.SQL(sql.Postgres, sql.PostgresURL(db.URL, db.User, db.Token), "SELECT name FROM users WHERE service = "+service)
+	service_id, err := sql.SQL(sql.Postgres, sql.PostgresURL(db.URL, db.User, db.Token), "SELECT service_id FROM services WHERE service = "+service)
+	if err != nil || len(service_id) < 1 {
+		return make([]string, 0), err
+	}
+	return sql.SQL(sql.Postgres, sql.PostgresURL(db.URL, db.User, db.Token), "SELECT username FROM users WHERE service_id = "+service_id[0])
 }
 
 func ReadUser(user string, serv string, db types.ServerEntry) (types.UserEntry, error) {
