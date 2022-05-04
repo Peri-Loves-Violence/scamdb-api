@@ -3,8 +3,9 @@ API-Library to interact with Scam-DB
 
 # Supported Databases
 * [Filesystem/Local](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/Local): A local folder as a Scam-DB
-* [Google Spreadsheets](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/Google): Use a spreadsheet on Google Drive as a Scam-DB with the bonus of having an easy-to-use interface.
+* *(WIP)* [Google Spreadsheets](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/Google): Use a spreadsheet on Google Drive as a Scam-DB with the bonus of having an easy-to-use interface.
 * [GitHub](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/GitHub): The same as a local one except it's a repository on GitHub
+* [SQLite](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/SQLite): Use SQLite as a Scam-DB 
 * [MySQL/MariaDB](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/MySQL): MySQL-like RDBMS as a Scam-DB
 * [PostgresQL/CockroachDB](https://github.com/Peri-Loves-Violence/scamdb-api/wiki/PostgresQL): A Scam-DB powered by PostgresQL and alike
 
@@ -12,6 +13,7 @@ API-Library to interact with Scam-DB
 | Database    | Very Fast access*   | Reliability        | Easy-to-install    | Lightweight        |
 | ----------- | ------------------- | ------------------ | ------------------ | ------------------ |
 | GitHub      | :white_check_mark:  | :white_check_mark: | :white_check_mark: | :cloud:            |
+| Google      | :white_check_mark:  | :cloud:            | :white_check_mark: | :cloud:            |
 | Local       | Depending on medium | :x: (except RAID)  | :white_check_mark: | :white_check_mark: |
 | SQLite      | Depending on medium | :x: (except RAID)  | :white_check_mark: | :white_check_mark: |
 | MySQL       | :x:                 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
